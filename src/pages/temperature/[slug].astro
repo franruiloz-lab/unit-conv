@@ -1,0 +1,138 @@
+---
+import ConverterLayout from '../../layouts/ConverterLayout.astro';
+import TemperatureConverter from '../../components/converters/TemperatureConverter';
+
+export function getStaticPaths() {
+  const paths = [];
+
+  // Celsius to Fahrenheit: 0–250
+  for (let c = 0; c <= 250; c++) {
+    const f = parseFloat(((c * 9 / 5) + 32).toFixed(2));
+    paths.push({
+      params: { slug: `${c}-celsius-to-fahrenheit` },
+      props: { value: c, result: f, fromUnit: 'c', toUnit: 'f', fromLabel: 'Celsius', toLabel: 'Fahrenheit', fromSymbol: '°C', toSymbol: '°F', direction: 'ctof' }
+    });
+  }
+
+  // Fahrenheit to Celsius: 0–450
+  for (let f = 0; f <= 450; f++) {
+    const c = parseFloat(((f - 32) * 5 / 9).toFixed(2));
+    paths.push({
+      params: { slug: `${f}-fahrenheit-to-celsius` },
+      props: { value: f, result: c, fromUnit: 'f', toUnit: 'c', fromLabel: 'Fahrenheit', toLabel: 'Celsius', fromSymbol: '°F', toSymbol: '°C', direction: 'ftoc' }
+    });
+  }
+
+  // Celsius to Kelvin: 0–300
+  for (let c = 0; c <= 300; c++) {
+    const k = parseFloat((c + 273.15).toFixed(2));
+    paths.push({
+      params: { slug: `${c}-celsius-to-kelvin` },
+      props: { value: c, result: k, fromUnit: 'c', toUnit: 'k', fromLabel: 'Celsius', toLabel: 'Kelvin', fromSymbol: '°C', toSymbol: 'K', direction: 'ctok' }
+    });
+  }
+
+  return paths;
+}
+
+const { value, result, fromUnit, toUnit, fromLabel, toLabel, fromSymbol, toSymbol, direction } = Astro.props;
+
+// Build nearby table
+const nearby: { v: number; r: number }[] = [];
+if (direction === 'ctof') {
+  for (let offset = -3; offset <= 5; offset++) {
+    const v = value + offset;
+    if (v >= -273 && v <= 1000) nearby.push({ v, r: parseFloat(((v * 9/5) + 32).toFixed(2)) });
+  }
+} else if (direction === 'ftoc') {
+  for (let offset = -3; offset <= 5; offset++) {
+    const v = value + offset;
+    if (v >= -459 && v <= 2000) nearby.push({ v, r: parseFloat(((v - 32) * 5/9).toFixed(2)) });
+  }
+} else {
+  for (let offset = -3; offset <= 5; offset++) {
+    const v = value + offset;
+    if (v >= -273) nearby.push({ v, r: parseFloat((v + 273.15).toFixed(2)) });
+  }
+}
+
+const slugBase = direction === 'ctof' ? 'celsius-to-fahrenheit' : direction === 'ftoc' ? 'fahrenheit-to-celsius' : 'celsius-to-kelvin';
+
+const faqs = [
+  { q: `What is ${value}${fromSymbol} in ${toLabel}?`, a: `${value}${fromSymbol} = ${result}${toSymbol}.` },
+  { q: `How do you convert ${fromLabel} to ${toLabel}?`, a: direction === 'ctof' ? `Use the formula: °F = (°C × 9/5) + 32. So ${value}°C = (${value} × 9/5) + 32 = ${result}°F.` : direction === 'ftoc' ? `Use the formula: °C = (°F − 32) × 5/9. So ${value}°F = (${value} − 32) × 5/9 = ${result}°C.` : `Use the formula: K = °C + 273.15. So ${value}°C = ${value} + 273.15 = ${result} K.` },
+];
+
+const related = [
+  { title: 'Temperature Converter', href: '/temperature-converter/', icon: '🌡️', description: 'Convert all temperature units' },
+  { title: `${value + 1}${fromSymbol} to ${toLabel}`, href: `/temperature/${value + 1}-${slugBase}/`, icon: '🌡️', description: `${value + 1}${fromSymbol} in ${toLabel}` },
+  { title: 'Weight Converter', href: '/weight-converter/', icon: '⚖️', description: 'kg, lbs, grams, ounces' },
+  { title: 'Length Converter', href: '/length-converter/', icon: '📏', description: 'meters, feet, inches, miles' },
+];
+
+const cap = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
+---
+
+<ConverterLayout
+  title={`${value}${fromSymbol} to ${toLabel} — ${result}${toSymbol}`}
+  description={`${value}${fromSymbol} (${fromLabel}) = ${result}${toSymbol} (${toLabel}). Free instant temperature converter with formula and reference chart.`}
+  heading={`${value}${fromSymbol} to ${cap(toLabel)}`}
+  subheading={`${value} ${fromLabel} equals ${result}${toSymbol} ${toLabel}. Use the converter below for any temperature.`}
+  icon="🌡️"
+  category="Temperature"
+  breadcrumb="Temperature Converter"
+  faqs={faqs}
+  related={related}
+  schema={{
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": `${value}${fromSymbol} to ${toLabel} Converter`,
+    "applicationCategory": "UtilitiesApplication",
+    "operatingSystem": "Web",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+  }}
+  tipTitle="Quick Answer"
+  tipText={`${value}${fromSymbol} = ${result}${toSymbol}`}
+>
+  <div slot="sidebar">
+    <div class="bg-gradient-to-br from-navy-900 to-brand-900 rounded-xl p-5 text-white">
+      <div class="text-brand-300 text-xs font-semibold uppercase tracking-wider mb-1">Answer</div>
+      <div class="text-3xl font-extrabold text-brand-300">{result}{toSymbol}</div>
+      <div class="text-slate-400 text-sm mt-0.5">{toLabel}</div>
+      <div class="text-slate-500 text-xs mt-2">{value}{fromSymbol} = {result}{toSymbol}</div>
+    </div>
+  </div>
+
+  <div slot="converter">
+    <TemperatureConverter client:load defaultFrom={fromUnit} defaultTo={toUnit} />
+  </div>
+
+  <div slot="content">
+    <h2>How to Convert {value}{fromSymbol} to {cap(toLabel)}</h2>
+    {direction === 'ctof' && (
+      <><p>Use the Celsius to Fahrenheit formula:</p>
+      <div class="formula-box">°F = (°C × 9/5) + 32<br/>{value} × 9/5 + 32 = <strong>{result}°F</strong></div></>
+    )}
+    {direction === 'ftoc' && (
+      <><p>Use the Fahrenheit to Celsius formula:</p>
+      <div class="formula-box">°C = (°F − 32) × 5/9<br/>({value} − 32) × 5/9 = <strong>{result}°C</strong></div></>
+    )}
+    {direction === 'ctok' && (
+      <><p>Use the Celsius to Kelvin formula:</p>
+      <div class="formula-box">K = °C + 273.15<br/>{value} + 273.15 = <strong>{result} K</strong></div></>
+    )}
+
+    <h2>Nearby Temperature Conversions</h2>
+    <table>
+      <thead><tr><th>{fromLabel} ({fromSymbol})</th><th>{toLabel} ({toSymbol})</th></tr></thead>
+      <tbody>
+        {nearby.map(row => (
+          <tr class={row.v === value ? 'bg-brand-50 font-bold' : ''}>
+            <td><a href={`/temperature/${row.v}-${slugBase}/`} class="text-brand-600 hover:underline">{row.v}{fromSymbol}</a></td>
+            <td class="font-mono">{row.r}{toSymbol}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+</ConverterLayout>

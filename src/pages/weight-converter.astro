@@ -1,0 +1,79 @@
+---
+import ConverterLayout from '../layouts/ConverterLayout.astro';
+import WeightConverter from '../components/converters/WeightConverter';
+
+const faqs = [
+  { q: 'How many pounds in a kilogram?', a: 'There are 2.20462 pounds in one kilogram. To convert kg to lbs, multiply by 2.20462.' },
+  { q: 'How many grams in an ounce?', a: 'One ounce equals 28.3495 grams. To convert ounces to grams, multiply by 28.3495.' },
+  { q: 'How many pounds in a stone?', a: 'There are 14 pounds in one stone. Stones are commonly used in the UK and Ireland for body weight.' },
+  { q: 'What is the difference between mass and weight?', a: 'Mass is the amount of matter in an object (measured in kg, lb, etc.). Weight is the force of gravity on that mass. On Earth they are proportional, so unit converters treat them the same.' },
+  { q: 'How do I convert kg to lbs and oz?', a: 'First multiply kg by 2.20462 to get pounds. Then take the decimal part and multiply by 16 to get the remaining ounces. Example: 1.5 kg = 3.307 lb = 3 lb 4.9 oz.' },
+];
+
+const related = [
+  { title: 'Length Converter', href: '/length-converter/', icon: '📏', description: 'Meters, feet, inches, miles...' },
+  { title: 'Volume Converter', href: '/volume-converter/', icon: '🧪', description: 'Liters, gallons, cups...' },
+  { title: 'Temperature Converter', href: '/temperature-converter/', icon: '🌡️', description: 'Celsius, Fahrenheit, Kelvin' },
+  { title: 'Speed Converter', href: '/speed-converter/', icon: '🚀', description: 'mph, km/h, m/s, knots' },
+];
+
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Weight Converter",
+  "applicationCategory": "UtilitiesApplication",
+  "operatingSystem": "Web",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "description": "Free weight and mass converter. Convert between kg, lbs, grams, ounces, stones and more."
+};
+---
+
+<ConverterLayout
+  title="Weight Converter — kg to lbs, Grams, Ounces, Stones"
+  description="Free weight converter. Instantly convert between kilograms, pounds, grams, ounces, stones, metric tons and more. Full conversion table included."
+  heading="Weight & Mass Converter"
+  subheading="Convert between kilograms, pounds, grams, ounces, stones, metric tons and more — instantly."
+  icon="⚖️"
+  category="Weight & Mass"
+  faqs={faqs}
+  related={related}
+  schema={schema}
+  tipTitle="Weight Facts"
+  tipText="The average adult human weighs about 70 kg (154 lbs). A US nickel coin weighs exactly 5 grams."
+>
+  <div slot="converter">
+    <WeightConverter client:load />
+  </div>
+
+  <div slot="content">
+    <h2>How to Convert Weight Units</h2>
+    <p>Enter your value in the left field, select your starting unit, then choose the unit you want to convert to. The converter updates automatically as you type.</p>
+
+    <h2>Common Weight Conversions</h2>
+    <table>
+      <thead><tr><th>From</th><th>To</th><th>Multiply by</th></tr></thead>
+      <tbody>
+        <tr><td>Kilograms (kg)</td><td>Pounds (lb)</td><td>2.20462</td></tr>
+        <tr><td>Pounds (lb)</td><td>Kilograms (kg)</td><td>0.453592</td></tr>
+        <tr><td>Ounces (oz)</td><td>Grams (g)</td><td>28.3495</td></tr>
+        <tr><td>Grams (g)</td><td>Ounces (oz)</td><td>0.035274</td></tr>
+        <tr><td>Stones (st)</td><td>Pounds (lb)</td><td>14</td></tr>
+        <tr><td>Kilograms (kg)</td><td>Stones (st)</td><td>0.157473</td></tr>
+        <tr><td>Metric Tons (t)</td><td>Kilograms (kg)</td><td>1,000</td></tr>
+      </tbody>
+    </table>
+
+    <h2>Weight Reference Chart (kg to lbs)</h2>
+    <table>
+      <thead><tr><th>kg</th><th>lbs</th><th>lbs + oz</th></tr></thead>
+      <tbody>
+        <tr><td>50 kg</td><td>110.23 lb</td><td>110 lb 3.7 oz</td></tr>
+        <tr><td>60 kg</td><td>132.28 lb</td><td>132 lb 4.4 oz</td></tr>
+        <tr><td>70 kg</td><td>154.32 lb</td><td>154 lb 5.1 oz</td></tr>
+        <tr><td>80 kg</td><td>176.37 lb</td><td>176 lb 5.9 oz</td></tr>
+        <tr><td>90 kg</td><td>198.42 lb</td><td>198 lb 6.7 oz</td></tr>
+        <tr><td>100 kg</td><td>220.46 lb</td><td>220 lb 7.4 oz</td></tr>
+      </tbody>
+    </table>
+  </div>
+</ConverterLayout>

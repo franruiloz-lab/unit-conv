@@ -1,0 +1,59 @@
+---
+import ConverterLayout from '../layouts/ConverterLayout.astro';
+import AreaConverter from '../components/converters/AreaConverter';
+
+const faqs = [
+  { q: 'How many square feet in an acre?', a: 'There are 43,560 square feet in one acre.' },
+  { q: 'How many acres in a hectare?', a: 'One hectare equals 2.47105 acres. Conversely, one acre equals 0.404686 hectares.' },
+  { q: 'How many square meters in a square foot?', a: 'One square foot equals 0.092903 square meters. One square meter equals 10.7639 square feet.' },
+  { q: 'What is a hectare used for?', a: 'Hectares are commonly used for measuring land area, especially in agriculture and real estate outside the US. One hectare = 10,000 m².' },
+];
+
+const related = [
+  { title: 'Length Converter', href: '/length-converter/', icon: '📏', description: 'Meters, feet, inches, miles...' },
+  { title: 'Volume Converter', href: '/volume-converter/', icon: '🧪', description: 'Liters, gallons, cups...' },
+  { title: 'Weight Converter', href: '/weight-converter/', icon: '⚖️', description: 'kg, lbs, grams, ounces' },
+];
+
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Area Converter",
+  "applicationCategory": "UtilitiesApplication",
+  "operatingSystem": "Web",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+};
+---
+
+<ConverterLayout
+  title="Area Converter — Square Feet, Meters, Acres, Hectares"
+  description="Free area converter. Convert between square meters, square feet, acres, hectares, square miles and more."
+  heading="Area Converter"
+  subheading="Convert between square meters, square feet, acres, hectares, square miles and more."
+  icon="📐"
+  category="Area"
+  faqs={faqs}
+  related={related}
+  schema={schema}
+  tipTitle="Area Fact"
+  tipText="A standard football field (American) covers about 1.32 acres or 0.535 hectares including end zones."
+>
+  <div slot="converter">
+    <AreaConverter client:load />
+  </div>
+  <div slot="content">
+    <h2>Common Area Conversions</h2>
+    <table>
+      <thead><tr><th>From</th><th>To</th><th>Multiply by</th></tr></thead>
+      <tbody>
+        <tr><td>Square Meters (m²)</td><td>Square Feet (ft²)</td><td>10.7639</td></tr>
+        <tr><td>Square Feet (ft²)</td><td>Square Meters (m²)</td><td>0.092903</td></tr>
+        <tr><td>Acres</td><td>Hectares (ha)</td><td>0.404686</td></tr>
+        <tr><td>Hectares (ha)</td><td>Acres</td><td>2.47105</td></tr>
+        <tr><td>Square Miles (mi²)</td><td>Square km (km²)</td><td>2.58999</td></tr>
+        <tr><td>Square km (km²)</td><td>Square Miles (mi²)</td><td>0.386102</td></tr>
+        <tr><td>Acres</td><td>Square Feet (ft²)</td><td>43,560</td></tr>
+      </tbody>
+    </table>
+  </div>
+</ConverterLayout>

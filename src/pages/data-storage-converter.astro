@@ -1,0 +1,57 @@
+---
+import ConverterLayout from '../layouts/ConverterLayout.astro';
+import DataStorageConverter from '../components/converters/DataStorageConverter';
+
+const faqs = [
+  { q: 'How many MB in a GB?', a: 'There are 1,024 megabytes (MB) in one gigabyte (GB) using binary (IEC) units. In decimal (SI) units, 1 GB = 1,000 MB.' },
+  { q: 'How many GB in a TB?', a: 'There are 1,024 gigabytes in one terabyte (binary). In decimal, 1 TB = 1,000 GB.' },
+  { q: 'What is the difference between bits and bytes?', a: 'A byte consists of 8 bits. Network speeds are typically measured in bits (Mbps), while file sizes are in bytes (MB, GB).' },
+  { q: 'How many GB is 1 TB?', a: '1 terabyte = 1,024 gigabytes (binary) or 1,000 gigabytes (decimal). Hard drive manufacturers use decimal, operating systems use binary.' },
+];
+
+const related = [
+  { title: 'Speed Converter', href: '/speed-converter/', icon: '🚀', description: 'mph, km/h, Mbps bandwidth...' },
+  { title: 'Time Converter', href: '/time-converter/', icon: '⏱️', description: 'Hours, minutes, seconds...' },
+  { title: 'Length Converter', href: '/length-converter/', icon: '📏', description: 'Meters, feet, inches, miles' },
+];
+
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Data Storage Converter",
+  "applicationCategory": "UtilitiesApplication",
+  "operatingSystem": "Web",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+};
+---
+
+<ConverterLayout
+  title="Data Storage Converter — MB to GB, TB, Bits, Bytes"
+  description="Free data storage converter. Convert between bytes, KB, MB, GB, TB, PB, bits and more. Instant results."
+  heading="Data Storage Converter"
+  subheading="Convert between bytes, kilobytes, megabytes, gigabytes, terabytes, bits and more."
+  icon="💾"
+  category="Data Storage"
+  faqs={faqs}
+  related={related}
+  schema={schema}
+  tipTitle="Storage Fact"
+  tipText="1 HD movie ≈ 4–8 GB. 1 MP3 song ≈ 3–5 MB. A standard SSD today is 1 TB = 1,024 GB."
+>
+  <div slot="converter">
+    <DataStorageConverter client:load />
+  </div>
+  <div slot="content">
+    <h2>Data Storage Unit Reference</h2>
+    <table>
+      <thead><tr><th>Unit</th><th>Bytes (binary)</th><th>Common Use</th></tr></thead>
+      <tbody>
+        <tr><td>1 Kilobyte (KB)</td><td>1,024 bytes</td><td>Small text files</td></tr>
+        <tr><td>1 Megabyte (MB)</td><td>1,048,576 bytes</td><td>Photos, songs</td></tr>
+        <tr><td>1 Gigabyte (GB)</td><td>1,073,741,824 bytes</td><td>Apps, movies</td></tr>
+        <tr><td>1 Terabyte (TB)</td><td>~1.1 trillion bytes</td><td>Hard drives, SSDs</td></tr>
+        <tr><td>1 Petabyte (PB)</td><td>~1.1 quadrillion bytes</td><td>Data centers</td></tr>
+      </tbody>
+    </table>
+  </div>
+</ConverterLayout>

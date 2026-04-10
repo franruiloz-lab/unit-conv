@@ -1,0 +1,86 @@
+---
+import ConverterLayout from '../layouts/ConverterLayout.astro';
+import LengthConverter from '../components/converters/LengthConverter';
+
+const faqs = [
+  { q: 'How many feet in a meter?', a: 'There are 3.28084 feet in one meter. To convert meters to feet, multiply the value in meters by 3.28084.' },
+  { q: 'How many cm in an inch?', a: 'There are 2.54 centimeters in one inch. To convert inches to centimeters, multiply by 2.54.' },
+  { q: 'How many km in a mile?', a: 'One mile equals 1.60934 kilometers. To convert miles to km, multiply by 1.60934.' },
+  { q: 'What is the difference between meters and yards?', a: 'One meter equals 1.09361 yards. Yards are slightly shorter than meters — 1 yard = 0.9144 meters.' },
+  { q: 'How do I convert feet and inches to centimeters?', a: 'First convert feet to inches (multiply by 12), add the remaining inches, then multiply the total inches by 2.54 to get centimeters.' },
+  { q: 'What units does this length converter support?', a: 'This converter supports millimeters (mm), centimeters (cm), meters (m), kilometers (km), inches (in), feet (ft), yards (yd), miles (mi), and nautical miles (nmi).' },
+];
+
+const related = [
+  { title: 'Weight Converter', href: '/weight-converter/', icon: '⚖️', description: 'kg, lbs, grams, ounces and more' },
+  { title: 'Area Converter', href: '/area-converter/', icon: '📐', description: 'm², ft², acres, hectares' },
+  { title: 'Speed Converter', href: '/speed-converter/', icon: '🚀', description: 'mph, km/h, m/s, knots' },
+  { title: 'Temperature Converter', href: '/temperature-converter/', icon: '🌡️', description: 'Celsius, Fahrenheit, Kelvin' },
+];
+
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Length Converter",
+  "applicationCategory": "UtilitiesApplication",
+  "operatingSystem": "Web",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "description": "Free length converter. Convert between meters, feet, inches, cm, miles, km and more."
+};
+---
+
+<ConverterLayout
+  title="Length Converter — Meters, Feet, Inches, cm, Miles, km"
+  description="Free length converter. Instantly convert between meters, feet, inches, centimeters, miles, kilometers, yards and more. Includes full conversion table."
+  heading="Length Converter"
+  subheading="Convert between meters, feet, inches, centimeters, miles, kilometers, yards and more — instantly."
+  icon="📏"
+  category="Length & Distance"
+  faqs={faqs}
+  related={related}
+  schema={schema}
+  tipTitle="Common Length Facts"
+  tipText="A standard door is about 2 meters (6.56 ft) tall. A football field is 100 yards (91.44 m) long."
+>
+  <div slot="converter">
+    <LengthConverter client:load />
+  </div>
+
+  <div slot="content">
+    <h2>How to Convert Length Units</h2>
+    <p>Select the unit you're converting from in the left dropdown, enter your value, then choose the target unit on the right. The result updates instantly.</p>
+
+    <h2>Common Length Conversions</h2>
+    <table>
+      <thead><tr><th>From</th><th>To</th><th>Multiply by</th></tr></thead>
+      <tbody>
+        <tr><td>Meters</td><td>Feet</td><td>3.28084</td></tr>
+        <tr><td>Feet</td><td>Meters</td><td>0.3048</td></tr>
+        <tr><td>Inches</td><td>Centimeters</td><td>2.54</td></tr>
+        <tr><td>Centimeters</td><td>Inches</td><td>0.393701</td></tr>
+        <tr><td>Miles</td><td>Kilometers</td><td>1.60934</td></tr>
+        <tr><td>Kilometers</td><td>Miles</td><td>0.621371</td></tr>
+        <tr><td>Meters</td><td>Yards</td><td>1.09361</td></tr>
+        <tr><td>Yards</td><td>Meters</td><td>0.9144</td></tr>
+      </tbody>
+    </table>
+
+    <h2>Length Unit Reference</h2>
+    <p>The <strong>metric system</strong> (used in most countries) uses meters as its base unit, with millimeters (1/1000 m), centimeters (1/100 m), and kilometers (1000 m).</p>
+    <p>The <strong>imperial/US customary system</strong> uses inches, feet (12 inches), yards (3 feet), and miles (5,280 feet).</p>
+
+    <h2>Height Conversion Chart (cm to feet & inches)</h2>
+    <table>
+      <thead><tr><th>cm</th><th>Feet & Inches</th><th>Inches</th></tr></thead>
+      <tbody>
+        <tr><td>150 cm</td><td>4 ft 11.1 in</td><td>59.06 in</td></tr>
+        <tr><td>160 cm</td><td>5 ft 3 in</td><td>62.99 in</td></tr>
+        <tr><td>170 cm</td><td>5 ft 6.9 in</td><td>66.93 in</td></tr>
+        <tr><td>175 cm</td><td>5 ft 8.9 in</td><td>68.9 in</td></tr>
+        <tr><td>180 cm</td><td>5 ft 10.9 in</td><td>70.87 in</td></tr>
+        <tr><td>185 cm</td><td>6 ft 0.9 in</td><td>72.83 in</td></tr>
+        <tr><td>190 cm</td><td>6 ft 2.8 in</td><td>74.8 in</td></tr>
+      </tbody>
+    </table>
+  </div>
+</ConverterLayout>

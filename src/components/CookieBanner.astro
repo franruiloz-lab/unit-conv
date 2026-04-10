@@ -1,0 +1,32 @@
+---
+---
+<div id="cookie-banner" class="fixed bottom-0 left-0 right-0 z-50 bg-navy-900 border-t border-navy-800 shadow-2xl hidden">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+    <p class="text-slate-300 text-sm leading-relaxed max-w-2xl">
+      We use cookies to improve your experience. All conversions run locally — no personal data is collected.
+      <a href="/cookie-policy/" class="text-brand-400 underline hover:text-brand-300 ml-1">Learn more</a>
+    </p>
+    <div class="flex gap-2 flex-shrink-0">
+      <button id="cookie-necessary" class="px-4 py-2 text-xs font-semibold text-slate-300 border border-navy-700 hover:border-slate-500 rounded-lg transition-colors">
+        Necessary Only
+      </button>
+      <button id="cookie-accept" class="px-4 py-2 text-xs font-semibold bg-brand-600 hover:bg-brand-700 text-white rounded-lg transition-colors">
+        Accept All
+      </button>
+    </div>
+  </div>
+</div>
+
+<script>
+  const CONSENT_KEY = 'unitcalc_cookie_consent';
+  const banner = document.getElementById('cookie-banner');
+  if (!localStorage.getItem(CONSENT_KEY)) banner?.classList.remove('hidden');
+  document.getElementById('cookie-accept')?.addEventListener('click', () => {
+    localStorage.setItem(CONSENT_KEY, 'all');
+    banner?.classList.add('hidden');
+  });
+  document.getElementById('cookie-necessary')?.addEventListener('click', () => {
+    localStorage.setItem(CONSENT_KEY, 'necessary');
+    banner?.classList.add('hidden');
+  });
+</script>

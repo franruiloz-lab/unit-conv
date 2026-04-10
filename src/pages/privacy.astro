@@ -1,0 +1,38 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+const siteUrl = 'https://unitcalc.io';
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "Privacy Policy — UnitCalc",
+  "url": `${siteUrl}/privacy/`,
+  "isPartOf": { "@type": "WebSite", "name": "UnitCalc", "url": siteUrl }
+};
+---
+<BaseLayout title="Privacy Policy | UnitCalc" description="Privacy Policy for UnitCalc. We respect your privacy — all conversions run locally in your browser." schema={schema}>
+  <div class="max-w-3xl mx-auto px-4 py-12 prose-content">
+    <h1 class="text-3xl font-extrabold text-navy-900 mb-2">Privacy Policy</h1>
+    <p class="text-slate-500 text-sm mb-8">Last updated: January 2025</p>
+    <h2>1. Overview</h2>
+    <p>UnitCalc ("we", "us") operates unitcalc.io. We are committed to protecting your privacy. All unit conversions run entirely in your browser — no data is transmitted to our servers.</p>
+    <h2>2. Information We Collect</h2>
+    <p>We collect minimal information:</p>
+    <ul>
+      <li><strong>Usage analytics:</strong> Anonymous page views via Google Analytics (if you consent). No personal data, no cross-site tracking.</li>
+      <li><strong>Cookie consent:</strong> Your cookie preference is stored locally in your browser via <code>localStorage</code>.</li>
+    </ul>
+    <p>We do <strong>not</strong> collect names, emails, IP addresses, or any conversion inputs.</p>
+    <h2>3. Cookies</h2>
+    <p>We use only essential cookies and, with your consent, analytics cookies. See our <a href="/cookie-policy/" class="text-brand-600 hover:underline">Cookie Policy</a> for full details.</p>
+    <h2>4. Third-Party Services</h2>
+    <p>We may use Google Fonts (loaded from Google servers) and Google Analytics (optional, consent-based). Google's privacy policy applies to these services.</p>
+    <h2>5. Your Rights</h2>
+    <p>Under GDPR and applicable law, you have the right to access, correct, or delete any personal data. Since we collect no personal data, there is nothing to access or delete. Contact us at <a href="mailto:franruizlozano31@gmail.com" class="text-brand-600 hover:underline">franruizlozano31@gmail.com</a> with any questions.</p>
+    <h2>6. Data Retention</h2>
+    <p>Cookie preferences stored in your browser are retained until you clear your browser data or withdraw consent.</p>
+    <h2>7. Changes</h2>
+    <p>We may update this policy. Changes will be posted on this page with an updated date.</p>
+    <h2>8. Contact</h2>
+    <p>Email: <a href="mailto:franruizlozano31@gmail.com" class="text-brand-600 hover:underline">franruizlozano31@gmail.com</a></p>
+  </div>
+</BaseLayout>

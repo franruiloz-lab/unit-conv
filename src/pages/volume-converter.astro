@@ -1,0 +1,60 @@
+---
+import ConverterLayout from '../layouts/ConverterLayout.astro';
+import VolumeConverter from '../components/converters/VolumeConverter';
+
+const faqs = [
+  { q: 'How many liters in a gallon?', a: 'One US gallon equals 3.78541 liters. One UK (imperial) gallon equals 4.54609 liters.' },
+  { q: 'How many cups in a liter?', a: 'There are approximately 4.22675 US cups in one liter.' },
+  { q: 'How many fluid ounces in a cup?', a: 'There are 8 US fluid ounces in one US cup.' },
+  { q: 'How many tablespoons in a cup?', a: 'There are 16 tablespoons in one US cup.' },
+  { q: 'How many ml in a teaspoon?', a: 'One US teaspoon equals approximately 4.92892 milliliters.' },
+];
+
+const related = [
+  { title: 'Weight Converter', href: '/weight-converter/', icon: '⚖️', description: 'kg, lbs, grams, ounces' },
+  { title: 'Area Converter', href: '/area-converter/', icon: '📐', description: 'm², ft², acres, hectares' },
+  { title: 'Length Converter', href: '/length-converter/', icon: '📏', description: 'Meters, feet, inches, miles' },
+];
+
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Volume Converter",
+  "applicationCategory": "UtilitiesApplication",
+  "operatingSystem": "Web",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+};
+---
+
+<ConverterLayout
+  title="Volume Converter — Liters, Gallons, Cups, ml, fl oz"
+  description="Free volume converter. Convert between liters, gallons, cups, milliliters, fluid ounces, tablespoons and more."
+  heading="Volume Converter"
+  subheading="Convert between liters, gallons, cups, milliliters, fluid ounces, tablespoons and more."
+  icon="🧪"
+  category="Volume"
+  faqs={faqs}
+  related={related}
+  schema={schema}
+  tipTitle="Cooking Tip"
+  tipText="1 US cup = 240 ml. 1 tablespoon = 15 ml. 1 teaspoon = 5 ml. Handy for recipe conversions."
+>
+  <div slot="converter">
+    <VolumeConverter client:load />
+  </div>
+  <div slot="content">
+    <h2>Common Volume Conversions</h2>
+    <table>
+      <thead><tr><th>From</th><th>To</th><th>Result</th></tr></thead>
+      <tbody>
+        <tr><td>1 Liter</td><td>US Gallons</td><td>0.264172 gal</td></tr>
+        <tr><td>1 US Gallon</td><td>Liters</td><td>3.78541 L</td></tr>
+        <tr><td>1 Cup (US)</td><td>Milliliters</td><td>236.588 ml</td></tr>
+        <tr><td>1 Fluid Ounce</td><td>Milliliters</td><td>29.5735 ml</td></tr>
+        <tr><td>1 Tablespoon</td><td>Milliliters</td><td>14.7868 ml</td></tr>
+        <tr><td>1 Teaspoon</td><td>Milliliters</td><td>4.92892 ml</td></tr>
+        <tr><td>1 Liter</td><td>Cups (US)</td><td>4.22675 cups</td></tr>
+      </tbody>
+    </table>
+  </div>
+</ConverterLayout>

@@ -1,0 +1,32 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="630" fill="#0f172a"/>
+  <defs>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#10b981" stroke-width="0.4" opacity="0.3"/>
+    </pattern>
+  </defs>
+  <rect width="1200" height="630" fill="url(#grid)"/>
+  <rect x="0" y="0" width="8" height="630" fill="#059669"/>
+  <!-- Icon -->
+  <rect x="100" y="255" width="120" height="120" rx="20" fill="#065f46" stroke="#10b981" stroke-width="2"/>
+  <path d="M118 271H113a4 4 0 0 0-4 4v6m44 0v-6a4 4 0 0 0-4-4h-6m0 28h6a4 4 0 0 0 4-4v-6m-44 0v6a4 4 0 0 0 4 4h6" stroke="white" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+  <line x1="120" y1="315" x2="200" y2="315" stroke="#34d399" stroke-width="4" stroke-linecap="round"/>
+  <line x1="160" y1="275" x2="160" y2="355" stroke="#34d399" stroke-width="4" stroke-linecap="round"/>
+  <!-- Brand -->
+  <text x="270" y="300" font-family="Inter, system-ui, sans-serif" font-size="72" font-weight="800" fill="white" letter-spacing="-2">
+    <tspan fill="white">Unit</tspan><tspan fill="#34d399">Calc</tspan>
+  </text>
+  <!-- Tagline -->
+  <text x="270" y="355" font-family="Inter, system-ui, sans-serif" font-size="28" fill="#94a3b8">Free unit converters — instant, accurate results</text>
+  <!-- Pills -->
+  <rect x="270" y="400" width="160" height="40" rx="20" fill="#1e293b" stroke="#059669" stroke-width="1"/>
+  <text x="350" y="425" font-family="Inter, system-ui, sans-serif" font-size="16" fill="#34d399" text-anchor="middle">Length</text>
+  <rect x="446" y="400" width="160" height="40" rx="20" fill="#1e293b" stroke="#059669" stroke-width="1"/>
+  <text x="526" y="425" font-family="Inter, system-ui, sans-serif" font-size="16" fill="#34d399" text-anchor="middle">Weight</text>
+  <rect x="622" y="400" width="200" height="40" rx="20" fill="#1e293b" stroke="#059669" stroke-width="1"/>
+  <text x="722" y="425" font-family="Inter, system-ui, sans-serif" font-size="16" fill="#34d399" text-anchor="middle">Temperature</text>
+  <rect x="838" y="400" width="140" height="40" rx="20" fill="#1e293b" stroke="#059669" stroke-width="1"/>
+  <text x="908" y="425" font-family="Inter, system-ui, sans-serif" font-size="16" fill="#34d399" text-anchor="middle">Speed</text>
+  <!-- URL -->
+  <text x="600" y="580" font-family="Inter, system-ui, sans-serif" font-size="22" fill="#475569" text-anchor="middle">unitcalc.io</text>
+</svg>

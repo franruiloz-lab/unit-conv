@@ -1,0 +1,137 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import RelatedConverters from '../components/RelatedConverters.astro';
+import FAQ from '../components/FAQ.astro';
+
+interface FAQItem { q: string; a: string; }
+interface RelatedItem { title: string; href: string; icon: string; description: string; }
+
+interface Props {
+  title: string;
+  description: string;
+  heading: string;
+  subheading: string;
+  icon: string;
+  category?: string;
+  breadcrumb?: string;
+  faqs?: FAQItem[];
+  related?: RelatedItem[];
+  schema?: Record<string, unknown>;
+  tipTitle?: string;
+  tipText?: string;
+}
+
+const { title, description, heading, subheading, icon, category, breadcrumb, faqs = [], related = [], schema, tipTitle, tipText } = Astro.props;
+const breadcrumbLabel = breadcrumb ?? category ?? 'Unit Converters';
+const siteUrl = 'https://unitcalc.io';
+const pageUrl = `${siteUrl}${Astro.url.pathname}`;
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": siteUrl },
+    { "@type": "ListItem", "position": 2, "name": breadcrumbLabel, "item": `${siteUrl}/` },
+    { "@type": "ListItem", "position": 3, "name": heading, "item": pageUrl }
+  ]
+};
+
+const faqSchema = faqs.length > 0 ? {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqs.map(item => ({
+    "@type": "Question",
+    "name": item.q,
+    "acceptedAnswer": { "@type": "Answer", "text": item.a }
+  }))
+} : null;
+
+const webPageSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": heading,
+  "description": description,
+  "url": pageUrl,
+  "isPartOf": { "@type": "WebSite", "name": "UnitCalc", "url": siteUrl },
+  "inLanguage": "en",
+};
+
+const allSchemas = [
+  webPageSchema,
+  ...(schema ? [schema] : []),
+  breadcrumbSchema,
+  ...(faqSchema ? [faqSchema] : []),
+];
+---
+
+<BaseLayout title={title} description={description} schema={allSchemas}>
+  <!-- Breadcrumb -->
+  <div class="bg-white border-b border-slate-100">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
+      <nav class="flex items-center gap-2 text-sm text-slate-500">
+        <a href="/" class="hover:text-brand-600 transition-colors">Home</a>
+        <span>›</span>
+        <a href="/" class="hover:text-brand-600 transition-colors">{breadcrumbLabel}</a>
+        <span>›</span>
+        <span class="text-navy-900 font-medium">{heading}</span>
+      </nav>
+    </div>
+  </div>
+
+  <!-- Page header -->
+  <div class="bg-white border-b border-slate-100">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div class="flex items-start gap-4">
+        <div class="w-14 h-14 bg-brand-50 rounded-2xl flex items-center justify-center text-3xl flex-shrink-0 border border-brand-100">
+          {icon}
+        </div>
+        <div>
+          <h1 class="text-2xl sm:text-3xl font-extrabold text-navy-900">{heading}</h1>
+          <p class="text-slate-500 mt-1.5 text-base max-w-2xl">{subheading}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main content -->
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <!-- Left: converter + content -->
+      <div class="lg:col-span-2 space-y-8">
+        <slot name="converter" />
+        <div class="prose-content">
+          <slot name="content" />
+        </div>
+        {faqs.length > 0 && <FAQ items={faqs} />}
+        <slot name="faq" />
+      </div>
+
+      <!-- Right: sidebar -->
+      <div class="space-y-6">
+        <slot name="sidebar" />
+        {related.length > 0 && <RelatedConverters items={related} />}
+        <!-- Tip card -->
+        <div class="bg-brand-50 border border-brand-100 rounded-xl p-5">
+          <h3 class="font-bold text-navy-900 text-sm mb-2 flex items-center gap-2">
+            <span>💡</span> {tipTitle || 'Did You Know?'}
+          </h3>
+          <slot name="tip">
+            <p class="text-slate-600 text-sm leading-relaxed">{tipText || 'All conversions run in your browser. No data is ever sent to any server.'}</p>
+          </slot>
+        </div>
+        <!-- Quick links -->
+        <div class="bg-white border border-slate-200 rounded-xl p-5">
+          <h3 class="font-bold text-navy-900 text-sm mb-3">Popular Converters</h3>
+          <div class="space-y-1.5">
+            <a href="/length-converter/" class="block text-sm text-brand-600 hover:text-brand-700 hover:underline">Length converter</a>
+            <a href="/weight-converter/" class="block text-sm text-brand-600 hover:text-brand-700 hover:underline">Weight converter</a>
+            <a href="/temperature-converter/" class="block text-sm text-brand-600 hover:text-brand-700 hover:underline">Temperature converter</a>
+            <a href="/area-converter/" class="block text-sm text-brand-600 hover:text-brand-700 hover:underline">Area converter</a>
+            <a href="/volume-converter/" class="block text-sm text-brand-600 hover:text-brand-700 hover:underline">Volume converter</a>
+            <a href="/speed-converter/" class="block text-sm text-brand-600 hover:text-brand-700 hover:underline">Speed converter</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</BaseLayout>

@@ -1,0 +1,71 @@
+---
+import ConverterLayout from '../layouts/ConverterLayout.astro';
+import TemperatureConverter from '../components/converters/TemperatureConverter';
+
+const faqs = [
+  { q: 'How do I convert Celsius to Fahrenheit?', a: 'Use the formula: °F = (°C × 9/5) + 32. For example, 100°C = (100 × 9/5) + 32 = 180 + 32 = 212°F.' },
+  { q: 'How do I convert Fahrenheit to Celsius?', a: 'Use the formula: °C = (°F − 32) × 5/9. For example, 98.6°F = (98.6 − 32) × 5/9 = 66.6 × 5/9 = 37°C.' },
+  { q: 'What is normal body temperature in Fahrenheit and Celsius?', a: 'Normal human body temperature is 37°C or 98.6°F. A fever is generally considered above 38°C (100.4°F).' },
+  { q: 'What is absolute zero?', a: 'Absolute zero is 0 Kelvin, which equals −273.15°C or −459.67°F. It is the lowest theoretically possible temperature.' },
+  { q: 'At what temperature is Celsius equal to Fahrenheit?', a: 'Celsius and Fahrenheit are equal at −40 degrees. At −40°C = −40°F, the two scales intersect.' },
+];
+
+const related = [
+  { title: 'Length Converter', href: '/length-converter/', icon: '📏', description: 'Meters, feet, inches, miles...' },
+  { title: 'Weight Converter', href: '/weight-converter/', icon: '⚖️', description: 'kg, lbs, grams, ounces...' },
+  { title: 'Speed Converter', href: '/speed-converter/', icon: '🚀', description: 'mph, km/h, m/s, knots' },
+  { title: 'Time Converter', href: '/time-converter/', icon: '⏱️', description: 'Hours, minutes, seconds...' },
+];
+
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Temperature Converter",
+  "applicationCategory": "UtilitiesApplication",
+  "operatingSystem": "Web",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "description": "Free temperature converter. Convert between Celsius, Fahrenheit, Kelvin and Rankine."
+};
+---
+
+<ConverterLayout
+  title="Temperature Converter — Celsius to Fahrenheit, Kelvin"
+  description="Free temperature converter. Instantly convert between Celsius, Fahrenheit, Kelvin and Rankine. Includes formulas and common temperature reference chart."
+  heading="Temperature Converter"
+  subheading="Convert between Celsius, Fahrenheit, Kelvin and Rankine — with formulas and reference chart."
+  icon="🌡️"
+  category="Temperature"
+  faqs={faqs}
+  related={related}
+  schema={schema}
+  tipTitle="Temperature Landmarks"
+  tipText="Water freezes at 0°C (32°F) and boils at 100°C (212°F) at sea level. Human body temp is 37°C (98.6°F)."
+>
+  <div slot="converter">
+    <TemperatureConverter client:load />
+  </div>
+
+  <div slot="content">
+    <h2>Temperature Conversion Formulas</h2>
+    <h3>Celsius to Fahrenheit</h3>
+    <div class="formula-box">°F = (°C × 9/5) + 32</div>
+    <h3>Fahrenheit to Celsius</h3>
+    <div class="formula-box">°C = (°F − 32) × 5/9</div>
+    <h3>Celsius to Kelvin</h3>
+    <div class="formula-box">K = °C + 273.15</div>
+
+    <h2>Common Temperature Reference Chart</h2>
+    <table>
+      <thead><tr><th>Description</th><th>Celsius</th><th>Fahrenheit</th><th>Kelvin</th></tr></thead>
+      <tbody>
+        <tr><td>Absolute zero</td><td>−273.15°C</td><td>−459.67°F</td><td>0 K</td></tr>
+        <tr><td>Water freezes</td><td>0°C</td><td>32°F</td><td>273.15 K</td></tr>
+        <tr><td>Room temperature</td><td>20–22°C</td><td>68–72°F</td><td>293–295 K</td></tr>
+        <tr><td>Body temperature</td><td>37°C</td><td>98.6°F</td><td>310.15 K</td></tr>
+        <tr><td>Water boils</td><td>100°C</td><td>212°F</td><td>373.15 K</td></tr>
+        <tr><td>Oven — moderate</td><td>180°C</td><td>356°F</td><td>453.15 K</td></tr>
+        <tr><td>Oven — hot</td><td>230°C</td><td>446°F</td><td>503.15 K</td></tr>
+      </tbody>
+    </table>
+  </div>
+</ConverterLayout>

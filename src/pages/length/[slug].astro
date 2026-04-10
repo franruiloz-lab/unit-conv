@@ -1,0 +1,141 @@
+---
+import ConverterLayout from '../../layouts/ConverterLayout.astro';
+import LengthConverter from '../../components/converters/LengthConverter';
+
+// Conversion definitions
+const conversions = [
+  { from: 'meters',      to: 'feet',    fromU: 'm',  toU: 'ft',  factor: 3.28084,    fromLabel: 'meters',       toLabel: 'feet' },
+  { from: 'feet',        to: 'meters',  fromU: 'ft', toU: 'm',   factor: 0.3048,     fromLabel: 'feet',         toLabel: 'meters' },
+  { from: 'cm',          to: 'inches',  fromU: 'cm', toU: 'in',  factor: 0.393701,   fromLabel: 'centimeters',  toLabel: 'inches' },
+  { from: 'inches',      to: 'cm',      fromU: 'in', toU: 'cm',  factor: 2.54,       fromLabel: 'inches',       toLabel: 'centimeters' },
+  { from: 'miles',       to: 'km',      fromU: 'mi', toU: 'km',  factor: 1.60934,    fromLabel: 'miles',        toLabel: 'kilometers' },
+  { from: 'km',          to: 'miles',   fromU: 'km', toU: 'mi',  factor: 0.621371,   fromLabel: 'kilometers',   toLabel: 'miles' },
+  { from: 'feet',        to: 'inches',  fromU: 'ft', toU: 'in',  factor: 12,         fromLabel: 'feet',         toLabel: 'inches' },
+  { from: 'inches',      to: 'feet',    fromU: 'in', toU: 'ft',  factor: 0.0833333,  fromLabel: 'inches',       toLabel: 'feet' },
+  { from: 'meters',      to: 'yards',   fromU: 'm',  toU: 'yd',  factor: 1.09361,    fromLabel: 'meters',       toLabel: 'yards' },
+  { from: 'yards',       to: 'meters',  fromU: 'yd', toU: 'm',   factor: 0.9144,     fromLabel: 'yards',        toLabel: 'meters' },
+  { from: 'cm',          to: 'feet',    fromU: 'cm', toU: 'ft',  factor: 0.032808,   fromLabel: 'centimeters',  toLabel: 'feet' },
+  { from: 'meters',      to: 'cm',      fromU: 'm',  toU: 'cm',  factor: 100,        fromLabel: 'meters',       toLabel: 'centimeters' },
+];
+
+// Values to generate pages for
+const values = [
+  ...Array.from({length: 100}, (_, i) => i + 1),
+  110, 120, 125, 130, 140, 150, 160, 170, 175, 180, 185, 190, 200, 250, 300, 400, 500
+];
+
+export function getStaticPaths() {
+  const conversionDefs = [
+    { from: 'meters',      to: 'feet',    fromU: 'm',  toU: 'ft',  factor: 3.28084,    fromLabel: 'meters',       toLabel: 'feet' },
+    { from: 'feet',        to: 'meters',  fromU: 'ft', toU: 'm',   factor: 0.3048,     fromLabel: 'feet',         toLabel: 'meters' },
+    { from: 'cm',          to: 'inches',  fromU: 'cm', toU: 'in',  factor: 0.393701,   fromLabel: 'centimeters',  toLabel: 'inches' },
+    { from: 'inches',      to: 'cm',      fromU: 'in', toU: 'cm',  factor: 2.54,       fromLabel: 'inches',       toLabel: 'centimeters' },
+    { from: 'miles',       to: 'km',      fromU: 'mi', toU: 'km',  factor: 1.60934,    fromLabel: 'miles',        toLabel: 'kilometers' },
+    { from: 'km',          to: 'miles',   fromU: 'km', toU: 'mi',  factor: 0.621371,   fromLabel: 'kilometers',   toLabel: 'miles' },
+    { from: 'feet',        to: 'inches',  fromU: 'ft', toU: 'in',  factor: 12,         fromLabel: 'feet',         toLabel: 'inches' },
+    { from: 'inches',      to: 'feet',    fromU: 'in', toU: 'ft',  factor: 0.0833333,  fromLabel: 'inches',       toLabel: 'feet' },
+    { from: 'meters',      to: 'yards',   fromU: 'm',  toU: 'yd',  factor: 1.09361,    fromLabel: 'meters',       toLabel: 'yards' },
+    { from: 'yards',       to: 'meters',  fromU: 'yd', toU: 'm',   factor: 0.9144,     fromLabel: 'yards',        toLabel: 'meters' },
+    { from: 'cm',          to: 'feet',    fromU: 'cm', toU: 'ft',  factor: 0.032808,   fromLabel: 'centimeters',  toLabel: 'feet' },
+    { from: 'meters',      to: 'cm',      fromU: 'm',  toU: 'cm',  factor: 100,        fromLabel: 'meters',       toLabel: 'centimeters' },
+  ];
+  const vals = [
+    ...Array.from({length: 100}, (_, i) => i + 1),
+    110, 120, 125, 130, 140, 150, 160, 170, 175, 180, 185, 190, 200, 250, 300, 400, 500
+  ];
+  const paths = [];
+  for (const conv of conversionDefs) {
+    for (const v of vals) {
+      paths.push({
+        params: { slug: `${v}-${conv.from}-to-${conv.to}` },
+        props: { value: v, ...conv }
+      });
+    }
+  }
+  return paths;
+}
+
+const { value, from, to, fromU, toU, factor, fromLabel, toLabel } = Astro.props;
+
+function fmt(n: number): string {
+  if (Math.abs(n) >= 10000) return n.toLocaleString('en-US', { maximumFractionDigits: 2 });
+  if (Math.abs(n) >= 100) return parseFloat(n.toFixed(3)).toString();
+  return parseFloat(n.toFixed(6)).toString();
+}
+
+const result = fmt(value * factor);
+
+// Reference table: nearby values
+const nearby = [-2, -1, 0, 1, 2, 3, 4, 5].map(offset => {
+  const v = value + offset;
+  return v > 0 ? { v, r: fmt(v * factor) } : null;
+}).filter(Boolean);
+
+const faqs = [
+  { q: `How many ${toLabel} is ${value} ${fromLabel}?`, a: `${value} ${fromLabel} = ${result} ${toLabel}.` },
+  { q: `What is the formula to convert ${fromLabel} to ${toLabel}?`, a: `Multiply the value in ${fromLabel} by ${factor}. Formula: ${toLabel} = ${fromLabel} × ${factor}` },
+  { q: `How do I convert ${fromLabel} to ${toLabel}?`, a: `To convert ${fromLabel} to ${toLabel}, multiply by ${factor}. For ${value} ${fromLabel}: ${value} × ${factor} = ${result} ${toLabel}.` },
+];
+
+const related = [
+  { title: 'Length Converter', href: '/length-converter/', icon: '📏', description: 'Convert all length units' },
+  { title: `${value} cm to inches`, href: `/length/${value}-cm-to-inches/`, icon: '📐', description: `${value} cm in inches` },
+  { title: `${value} kg to lbs`, href: `/weight/${value}-kg-to-lbs/`, icon: '⚖️', description: `${value} kg in pounds` },
+  { title: 'Weight Converter', href: '/weight-converter/', icon: '⚖️', description: 'kg, lbs, grams, ounces' },
+];
+---
+
+<ConverterLayout
+  title={`${value} ${fromLabel.charAt(0).toUpperCase() + fromLabel.slice(1)} to ${toLabel.charAt(0).toUpperCase() + toLabel.slice(1)} — ${result} ${to}`}
+  description={`${value} ${fromLabel} = ${result} ${toLabel}. Free instant length converter with formula and reference table.`}
+  heading={`${value} ${fromLabel.charAt(0).toUpperCase() + fromLabel.slice(1)} to ${toLabel.charAt(0).toUpperCase() + toLabel.slice(1)}`}
+  subheading={`${value} ${fromLabel} equals ${result} ${toLabel}. Use the converter below for any value.`}
+  icon="📏"
+  category="Length & Distance"
+  breadcrumb="Length Converter"
+  faqs={faqs}
+  related={related}
+  schema={{
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": `${value} ${fromLabel} to ${toLabel} Converter`,
+    "applicationCategory": "UtilitiesApplication",
+    "operatingSystem": "Web",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+  }}
+  tipTitle="Quick Answer"
+  tipText={`${value} ${fromLabel} = ${result} ${toLabel}`}
+>
+  <!-- Result highlight -->
+  <div slot="sidebar">
+    <div class="bg-gradient-to-br from-navy-900 to-brand-900 rounded-xl p-5 text-white">
+      <div class="text-brand-300 text-xs font-semibold uppercase tracking-wider mb-1">Answer</div>
+      <div class="text-3xl font-extrabold text-brand-300">{result}</div>
+      <div class="text-slate-400 text-sm mt-0.5">{toLabel}</div>
+      <div class="text-slate-500 text-xs mt-2">{value} {fromLabel} = {result} {toLabel}</div>
+    </div>
+  </div>
+
+  <div slot="converter">
+    <LengthConverter client:load defaultFrom={fromU} defaultTo={toU} />
+  </div>
+
+  <div slot="content">
+    <h2>How to Convert {value} {fromLabel.charAt(0).toUpperCase() + fromLabel.slice(1)} to {toLabel.charAt(0).toUpperCase() + toLabel.slice(1)}</h2>
+    <p>To convert {fromLabel} to {toLabel}, multiply by <strong>{factor}</strong>:</p>
+    <div class="formula-box">{toLabel} = {fromLabel} × {factor}<br/>{value} × {factor} = <strong>{result} {toLabel}</strong></div>
+
+    <h2>Nearby Conversions ({fromLabel} to {toLabel})</h2>
+    <table>
+      <thead><tr><th>{fromLabel.charAt(0).toUpperCase() + fromLabel.slice(1)}</th><th>{toLabel.charAt(0).toUpperCase() + toLabel.slice(1)}</th></tr></thead>
+      <tbody>
+        {nearby.map(row => (
+          <tr class={row!.v === value ? 'bg-brand-50 font-bold' : ''}>
+            <td><a href={`/length/${row!.v}-${from}-to-${to}/`} class="text-brand-600 hover:underline">{row!.v} {fromLabel}</a></td>
+            <td class="font-mono">{row!.r} {toLabel}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+</ConverterLayout>

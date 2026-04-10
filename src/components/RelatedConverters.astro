@@ -1,0 +1,20 @@
+---
+interface Props { items: { title: string; href: string; icon: string; description: string }[]; }
+const { items } = Astro.props;
+---
+<div class="bg-white border border-slate-200 rounded-xl overflow-hidden">
+  <div class="px-5 py-3 border-b border-slate-100">
+    <h3 class="font-bold text-navy-900 text-sm">Related Converters</h3>
+  </div>
+  <div class="divide-y divide-slate-100">
+    {items.map(item => (
+      <a href={item.href} class="flex items-start gap-3 px-5 py-3.5 hover:bg-slate-50 transition-colors group">
+        <span class="text-xl flex-shrink-0 mt-0.5">{item.icon}</span>
+        <div>
+          <div class="font-semibold text-sm text-navy-900 group-hover:text-brand-600 transition-colors">{item.title}</div>
+          <div class="text-xs text-slate-500 mt-0.5">{item.description}</div>
+        </div>
+      </a>
+    ))}
+  </div>
+</div>

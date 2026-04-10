@@ -1,0 +1,114 @@
+---
+import ConverterLayout from '../../layouts/ConverterLayout.astro';
+import WeightConverter from '../../components/converters/WeightConverter';
+
+export function getStaticPaths() {
+  const conversionDefs = [
+    { from: 'kg',     to: 'lbs',    fromU: 'kg',  toU: 'lb',  factor: 2.20462,   fromLabel: 'kilograms',  toLabel: 'pounds' },
+    { from: 'lbs',    to: 'kg',     fromU: 'lb',  toU: 'kg',  factor: 0.453592,  fromLabel: 'pounds',     toLabel: 'kilograms' },
+    { from: 'grams',  to: 'ounces', fromU: 'g',   toU: 'oz',  factor: 0.035274,  fromLabel: 'grams',      toLabel: 'ounces' },
+    { from: 'ounces', to: 'grams',  fromU: 'oz',  toU: 'g',   factor: 28.3495,   fromLabel: 'ounces',     toLabel: 'grams' },
+    { from: 'kg',     to: 'grams',  fromU: 'kg',  toU: 'g',   factor: 1000,      fromLabel: 'kilograms',  toLabel: 'grams' },
+    { from: 'lbs',    to: 'ounces', fromU: 'lb',  toU: 'oz',  factor: 16,        fromLabel: 'pounds',     toLabel: 'ounces' },
+    { from: 'stones', to: 'lbs',    fromU: 'st',  toU: 'lb',  factor: 14,        fromLabel: 'stones',     toLabel: 'pounds' },
+    { from: 'lbs',    to: 'stones', fromU: 'lb',  toU: 'st',  factor: 0.0714286, fromLabel: 'pounds',     toLabel: 'stones' },
+  ];
+  const vals = [
+    ...Array.from({length: 200}, (_, i) => i + 1),
+    250, 300, 400, 500
+  ];
+  const paths = [];
+  for (const conv of conversionDefs) {
+    for (const v of vals) {
+      paths.push({
+        params: { slug: `${v}-${conv.from}-to-${conv.to}` },
+        props: { value: v, ...conv }
+      });
+    }
+  }
+  return paths;
+}
+
+const { value, from, to, fromU, toU, factor, fromLabel, toLabel } = Astro.props;
+
+function fmt(n: number): string {
+  if (Math.abs(n) >= 10000) return n.toLocaleString('en-US', { maximumFractionDigits: 2 });
+  if (Math.abs(n) >= 100) return parseFloat(n.toFixed(3)).toString();
+  return parseFloat(n.toFixed(4)).toString();
+}
+
+const result = fmt(value * factor);
+
+const nearby = [-2, -1, 0, 1, 2, 3, 4, 5].map(offset => {
+  const v = value + offset;
+  return v > 0 ? { v, r: fmt(v * factor) } : null;
+}).filter(Boolean);
+
+const faqs = [
+  { q: `How many ${toLabel} is ${value} ${fromLabel}?`, a: `${value} ${fromLabel} = ${result} ${toLabel}.` },
+  { q: `What is the formula to convert ${fromLabel} to ${toLabel}?`, a: `Multiply the value in ${fromLabel} by ${factor}. Formula: ${toLabel} = ${fromLabel} × ${factor}` },
+];
+
+const related = [
+  { title: 'Weight Converter', href: '/weight-converter/', icon: '⚖️', description: 'Convert all weight units' },
+  { title: `${value} lbs to kg`, href: `/weight/${value}-lbs-to-kg/`, icon: '⚖️', description: `${value} lbs in kilograms` },
+  { title: `${value} meters to feet`, href: `/length/${value}-meters-to-feet/`, icon: '📏', description: `${value} m in feet` },
+  { title: 'Length Converter', href: '/length-converter/', icon: '📏', description: 'meters, feet, inches, miles' },
+];
+
+const cap = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
+---
+
+<ConverterLayout
+  title={`${value} ${cap(fromLabel)} to ${cap(toLabel)} — ${result} ${to}`}
+  description={`${value} ${fromLabel} = ${result} ${toLabel}. Free instant weight converter with formula and reference table.`}
+  heading={`${value} ${cap(fromLabel)} to ${cap(toLabel)}`}
+  subheading={`${value} ${fromLabel} equals ${result} ${toLabel}. Use the converter below for any value.`}
+  icon="⚖️"
+  category="Weight & Mass"
+  breadcrumb="Weight Converter"
+  faqs={faqs}
+  related={related}
+  schema={{
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": `${value} ${fromLabel} to ${toLabel} Converter`,
+    "applicationCategory": "UtilitiesApplication",
+    "operatingSystem": "Web",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+  }}
+  tipTitle="Quick Answer"
+  tipText={`${value} ${fromLabel} = ${result} ${toLabel}`}
+>
+  <div slot="sidebar">
+    <div class="bg-gradient-to-br from-navy-900 to-brand-900 rounded-xl p-5 text-white">
+      <div class="text-brand-300 text-xs font-semibold uppercase tracking-wider mb-1">Answer</div>
+      <div class="text-3xl font-extrabold text-brand-300">{result}</div>
+      <div class="text-slate-400 text-sm mt-0.5">{toLabel}</div>
+      <div class="text-slate-500 text-xs mt-2">{value} {fromLabel} = {result} {toLabel}</div>
+    </div>
+  </div>
+
+  <div slot="converter">
+    <WeightConverter client:load defaultFrom={fromU} defaultTo={toU} />
+  </div>
+
+  <div slot="content">
+    <h2>How to Convert {value} {cap(fromLabel)} to {cap(toLabel)}</h2>
+    <p>To convert {fromLabel} to {toLabel}, multiply by <strong>{factor}</strong>:</p>
+    <div class="formula-box">{toLabel} = {fromLabel} × {factor}<br/>{value} × {factor} = <strong>{result} {toLabel}</strong></div>
+
+    <h2>Nearby Conversions ({fromLabel} to {toLabel})</h2>
+    <table>
+      <thead><tr><th>{cap(fromLabel)}</th><th>{cap(toLabel)}</th></tr></thead>
+      <tbody>
+        {nearby.map(row => (
+          <tr class={row!.v === value ? 'bg-brand-50 font-bold' : ''}>
+            <td><a href={`/weight/${row!.v}-${from}-to-${to}/`} class="text-brand-600 hover:underline">{row!.v} {fromLabel}</a></td>
+            <td class="font-mono">{row!.r} {toLabel}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+</ConverterLayout>

@@ -1,0 +1,32 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+<BaseLayout title="Page Not Found | UnitCalc" description="The page you're looking for doesn't exist. Browse our free unit conversion calculators.">
+  <div class="min-h-[60vh] flex flex-col items-center justify-center px-4 text-center py-20">
+    <div class="w-20 h-20 bg-brand-50 border border-brand-100 rounded-3xl flex items-center justify-center mb-6 text-4xl">
+      📏
+    </div>
+    <div class="text-8xl font-extrabold text-brand-100 mb-2 leading-none">404</div>
+    <h1 class="text-2xl font-extrabold text-navy-900 mb-3">Page not found</h1>
+    <p class="text-slate-500 max-w-md mb-8">This unit seems to have converted to another dimension. Try one of our converters below.</p>
+    <div class="flex flex-wrap justify-center gap-3 mb-10">
+      <a href="/" class="btn-primary">← Back to Home</a>
+      <a href="/length-converter/" class="inline-flex items-center gap-2 bg-white border border-slate-200 hover:border-brand-300 text-navy-900 text-sm font-semibold px-5 py-2.5 rounded-lg transition-colors">📏 Length Converter</a>
+      <a href="/weight-converter/" class="inline-flex items-center gap-2 bg-white border border-slate-200 hover:border-brand-300 text-navy-900 text-sm font-semibold px-5 py-2.5 rounded-lg transition-colors">⚖️ Weight Converter</a>
+      <a href="/temperature-converter/" class="inline-flex items-center gap-2 bg-white border border-slate-200 hover:border-brand-300 text-navy-900 text-sm font-semibold px-5 py-2.5 rounded-lg transition-colors">🌡️ Temperature</a>
+    </div>
+    <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 max-w-2xl">
+      {[
+        { label: 'Area Converter', href: '/area-converter/', icon: '📐' },
+        { label: 'Volume Converter', href: '/volume-converter/', icon: '🧪' },
+        { label: 'Speed Converter', href: '/speed-converter/', icon: '🚀' },
+        { label: 'Time Converter', href: '/time-converter/', icon: '⏱️' },
+      ].map(({ label, href, icon }) => (
+        <a href={href} class="flex flex-col items-center gap-2 bg-white border border-slate-200 hover:border-brand-300 hover:shadow-sm rounded-xl p-4 transition-all group">
+          <span class="text-2xl">{icon}</span>
+          <span class="text-xs font-semibold text-navy-900 group-hover:text-brand-600 text-center transition-colors">{label}</span>
+        </a>
+      ))}
+    </div>
+  </div>
+</BaseLayout>

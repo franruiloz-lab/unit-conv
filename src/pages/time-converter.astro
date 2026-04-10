@@ -1,0 +1,61 @@
+---
+import ConverterLayout from '../layouts/ConverterLayout.astro';
+import TimeConverter from '../components/converters/TimeConverter';
+
+const faqs = [
+  { q: 'How many seconds in an hour?', a: 'There are 3,600 seconds in one hour (60 minutes × 60 seconds).' },
+  { q: 'How many minutes in a day?', a: 'There are 1,440 minutes in one day (24 hours × 60 minutes).' },
+  { q: 'How many seconds in a day?', a: 'There are 86,400 seconds in one day (24 × 60 × 60).' },
+  { q: 'How many weeks in a year?', a: 'There are 52.1775 weeks in one year (365.25 days ÷ 7).' },
+  { q: 'How many hours in a year?', a: 'There are 8,766 hours in one year (365.25 days × 24 hours).' },
+];
+
+const related = [
+  { title: 'Speed Converter', href: '/speed-converter/', icon: '🚀', description: 'mph, km/h, m/s, knots' },
+  { title: 'Length Converter', href: '/length-converter/', icon: '📏', description: 'Meters, feet, inches, miles' },
+  { title: 'Temperature Converter', href: '/temperature-converter/', icon: '🌡️', description: 'Celsius, Fahrenheit, Kelvin' },
+];
+
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Time Converter",
+  "applicationCategory": "UtilitiesApplication",
+  "operatingSystem": "Web",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+};
+---
+
+<ConverterLayout
+  title="Time Converter — Hours to Minutes, Seconds, Days, Weeks"
+  description="Free time unit converter. Convert between nanoseconds, milliseconds, seconds, minutes, hours, days, weeks, months and years."
+  heading="Time Converter"
+  subheading="Convert between seconds, minutes, hours, days, weeks, months, years and more."
+  icon="⏱️"
+  category="Time"
+  faqs={faqs}
+  related={related}
+  schema={schema}
+  tipTitle="Time Fact"
+  tipText="Light travels about 299,792 km in one second. In one minute, light travels nearly 18 million km."
+>
+  <div slot="converter">
+    <TimeConverter client:load />
+  </div>
+  <div slot="content">
+    <h2>Time Unit Reference</h2>
+    <table>
+      <thead><tr><th>Unit</th><th>Seconds</th></tr></thead>
+      <tbody>
+        <tr><td>1 Minute</td><td>60 seconds</td></tr>
+        <tr><td>1 Hour</td><td>3,600 seconds</td></tr>
+        <tr><td>1 Day</td><td>86,400 seconds</td></tr>
+        <tr><td>1 Week</td><td>604,800 seconds</td></tr>
+        <tr><td>1 Month (avg)</td><td>2,629,800 seconds</td></tr>
+        <tr><td>1 Year (365.25 d)</td><td>31,557,600 seconds</td></tr>
+        <tr><td>1 Decade</td><td>315,576,000 seconds</td></tr>
+        <tr><td>1 Century</td><td>3,155,760,000 seconds</td></tr>
+      </tbody>
+    </table>
+  </div>
+</ConverterLayout>

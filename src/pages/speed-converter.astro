@@ -1,0 +1,59 @@
+---
+import ConverterLayout from '../layouts/ConverterLayout.astro';
+import SpeedConverter from '../components/converters/SpeedConverter';
+
+const faqs = [
+  { q: 'How do I convert mph to km/h?', a: 'Multiply mph by 1.60934 to get km/h. For example, 60 mph = 60 × 1.60934 = 96.56 km/h.' },
+  { q: 'How do I convert km/h to mph?', a: 'Multiply km/h by 0.621371 to get mph. For example, 100 km/h = 100 × 0.621371 = 62.14 mph.' },
+  { q: 'What is a knot?', a: 'A knot is one nautical mile per hour (1.852 km/h or 1.15078 mph). It is used in maritime and aviation navigation.' },
+  { q: 'What is Mach 1?', a: 'Mach 1 is the speed of sound, approximately 343 m/s (1,235 km/h or 767 mph) at sea level at 20°C.' },
+];
+
+const related = [
+  { title: 'Length Converter', href: '/length-converter/', icon: '📏', description: 'Meters, feet, inches, miles' },
+  { title: 'Time Converter', href: '/time-converter/', icon: '⏱️', description: 'Hours, minutes, seconds...' },
+  { title: 'Temperature Converter', href: '/temperature-converter/', icon: '🌡️', description: 'Celsius, Fahrenheit, Kelvin' },
+];
+
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Speed Converter",
+  "applicationCategory": "UtilitiesApplication",
+  "operatingSystem": "Web",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+};
+---
+
+<ConverterLayout
+  title="Speed Converter — mph to km/h, m/s, Knots, Mach"
+  description="Free speed converter. Convert between mph, km/h, meters per second, knots, and Mach. Instant results."
+  heading="Speed Converter"
+  subheading="Convert between mph, km/h, meters per second, feet per second, knots and Mach."
+  icon="🚀"
+  category="Speed"
+  faqs={faqs}
+  related={related}
+  schema={schema}
+  tipTitle="Speed Facts"
+  tipText="The speed limit on most US highways is 65–70 mph (105–113 km/h). Formula 1 cars top out at ~370 km/h (230 mph)."
+>
+  <div slot="converter">
+    <SpeedConverter client:load />
+  </div>
+  <div slot="content">
+    <h2>Common Speed Conversions</h2>
+    <table>
+      <thead><tr><th>From</th><th>To</th><th>Multiply by</th></tr></thead>
+      <tbody>
+        <tr><td>mph</td><td>km/h</td><td>1.60934</td></tr>
+        <tr><td>km/h</td><td>mph</td><td>0.621371</td></tr>
+        <tr><td>m/s</td><td>km/h</td><td>3.6</td></tr>
+        <tr><td>km/h</td><td>m/s</td><td>0.277778</td></tr>
+        <tr><td>knots</td><td>mph</td><td>1.15078</td></tr>
+        <tr><td>mph</td><td>knots</td><td>0.868976</td></tr>
+        <tr><td>Mach 1</td><td>km/h</td><td>1235.05</td></tr>
+      </tbody>
+    </table>
+  </div>
+</ConverterLayout>

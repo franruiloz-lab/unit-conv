@@ -1,0 +1,147 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const converterGroups = [
+  {
+    label: '📏 Length & Distance',
+    items: [
+      { title: 'Length Converter', href: '/length-converter/', badge: 'Most Popular', desc: 'Meters, feet, inches, miles, km...' },
+      { title: '5 Meters to Feet', href: '/length/5-meters-to-feet/', desc: '5 m = 16.404 ft' },
+      { title: '100 cm to Inches', href: '/length/100-cm-to-inches/', desc: '100 cm = 39.37 in' },
+      { title: '10 Miles to km', href: '/length/10-miles-to-km/', desc: '10 mi = 16.093 km' },
+      { title: '6 Feet to Meters', href: '/length/6-feet-to-meters/', desc: '6 ft = 1.8288 m' },
+      { title: '180 cm to Feet', href: '/length/180-cm-to-feet/', desc: '180 cm = 5.906 ft' },
+    ]
+  },
+  {
+    label: '⚖️ Weight & Mass',
+    items: [
+      { title: 'Weight Converter', href: '/weight-converter/', badge: 'Top Search', desc: 'kg, lbs, grams, ounces, stones...' },
+      { title: '70 kg to lbs', href: '/weight/70-kg-to-lbs/', desc: '70 kg = 154.32 lbs' },
+      { title: '100 lbs to kg', href: '/weight/100-lbs-to-kg/', desc: '100 lb = 45.359 kg' },
+      { title: '500 grams to oz', href: '/weight/500-grams-to-ounces/', desc: '500 g = 17.637 oz' },
+      { title: '80 kg to lbs', href: '/weight/80-kg-to-lbs/', desc: '80 kg = 176.37 lbs' },
+      { title: '150 lbs to kg', href: '/weight/150-lbs-to-kg/', desc: '150 lb = 68.039 kg' },
+    ]
+  },
+  {
+    label: '🌡️ Temperature',
+    items: [
+      { title: 'Temperature Converter', href: '/temperature-converter/', badge: 'Popular', desc: '°C, °F, K, Rankine' },
+      { title: '100°C to Fahrenheit', href: '/temperature/100-celsius-to-fahrenheit/', desc: '100°C = 212°F' },
+      { title: '37°C to Fahrenheit', href: '/temperature/37-celsius-to-fahrenheit/', desc: '37°C = 98.6°F (body temp)' },
+      { title: '350°F to Celsius', href: '/temperature/350-fahrenheit-to-celsius/', desc: '350°F = 176.67°C' },
+      { title: '0°C to Fahrenheit', href: '/temperature/0-celsius-to-fahrenheit/', desc: '0°C = 32°F (freezing)' },
+      { title: '72°F to Celsius', href: '/temperature/72-fahrenheit-to-celsius/', desc: '72°F = 22.22°C' },
+    ]
+  },
+  {
+    label: '📐 Area, Volume & More',
+    items: [
+      { title: 'Area Converter', href: '/area-converter/', desc: 'm², ft², acres, hectares...' },
+      { title: 'Volume Converter', href: '/volume-converter/', desc: 'Liters, gallons, cups, fl oz...' },
+      { title: 'Speed Converter', href: '/speed-converter/', desc: 'mph, km/h, m/s, knots...' },
+      { title: 'Data Storage Converter', href: '/data-storage-converter/', desc: 'MB, GB, TB, bits...' },
+      { title: 'Time Converter', href: '/time-converter/', desc: 'Hours, minutes, seconds, days...' },
+    ]
+  },
+];
+---
+
+<BaseLayout
+  title="UnitCalc — Free Unit Conversion Calculators"
+  description="Free unit converters for length, weight, temperature, area, volume, speed and more. Instant results, no signup required."
+>
+  <!-- Hero -->
+  <div class="bg-navy-900 relative overflow-hidden">
+    <div class="absolute inset-0 opacity-5"
+         style="background-image: linear-gradient(rgba(16,185,129,0.3) 1px, transparent 1px), linear-gradient(90deg, rgba(16,185,129,0.3) 1px, transparent 1px); background-size: 40px 40px;">
+    </div>
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20">
+      <div class="text-center max-w-3xl mx-auto">
+        <div class="section-tag mb-4 !text-brand-300 !bg-brand-900/50 !border-brand-700">
+          Free · Instant · Accurate
+        </div>
+        <h1 class="text-4xl sm:text-5xl font-extrabold text-white leading-tight mb-4">
+          Unit Conversion<br/><span class="text-brand-400">Calculators</span>
+        </h1>
+        <p class="text-slate-300 text-lg mb-8 leading-relaxed">
+          Convert length, weight, temperature, area, volume, speed and more.
+          All calculations happen instantly in your browser — no signup, no ads popups.
+        </p>
+        <div class="flex flex-wrap gap-3 justify-center">
+          <a href="/length-converter/" class="btn-primary">📏 Length Converter</a>
+          <a href="/weight-converter/" class="inline-flex items-center gap-2 bg-navy-800 hover:bg-navy-700 border border-navy-700 text-white font-semibold px-5 py-2.5 rounded-lg transition-colors text-sm">⚖️ Weight Converter</a>
+          <a href="/temperature-converter/" class="inline-flex items-center gap-2 bg-navy-800 hover:bg-navy-700 border border-navy-700 text-white font-semibold px-5 py-2.5 rounded-lg transition-colors text-sm">🌡️ Temperature</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Stats bar -->
+  <div class="bg-brand-600">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 text-center">
+        {[
+          { n: '40+', label: 'Converters' },
+          { n: '2000+', label: 'Conversion Pages' },
+          { n: '100%', label: 'Browser-Based' },
+          { n: '0', label: 'Signup Required' },
+        ].map(s => (
+          <div>
+            <div class="text-white font-extrabold text-lg">{s.n}</div>
+            <div class="text-brand-100 text-xs">{s.label}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+
+  <!-- Converter groups -->
+  <div id="converters" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="space-y-12">
+      {converterGroups.map(group => (
+        <div>
+          <h2 class="text-xl font-extrabold text-navy-900 mb-5">{group.label}</h2>
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {group.items.map(item => (
+              <a href={item.href}
+                 class="bg-white border border-slate-200 hover:border-brand-300 hover:shadow-sm rounded-xl p-4 flex flex-col gap-2 transition-all group">
+                <div class="flex items-center justify-between">
+                  <span class="font-bold text-sm text-navy-900 group-hover:text-brand-600 transition-colors">{item.title}</span>
+                  {item.badge && (
+                    <span class="text-xs font-semibold bg-brand-50 text-brand-600 px-2 py-0.5 rounded-full border border-brand-100">{item.badge}</span>
+                  )}
+                </div>
+                <span class="text-xs text-slate-500">{item.desc}</span>
+              </a>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+
+  <!-- Why section -->
+  <div class="bg-white border-t border-slate-100">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div class="text-center mb-8">
+        <h2 class="text-2xl font-extrabold text-navy-900">Why UnitCalc?</h2>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        {[
+          { icon: '⚡', title: 'Instant Results', desc: 'Converts as you type — no button needed.' },
+          { icon: '🎯', title: 'Precise', desc: 'Up to 6 decimal places. Correct conversion factors.' },
+          { icon: '🔒', title: 'Private', desc: 'Everything runs locally. No data is sent anywhere.' },
+          { icon: '📱', title: 'Works Anywhere', desc: 'Mobile, tablet, desktop. No app required.' },
+        ].map(f => (
+          <div class="bg-brand-50 border border-brand-100 rounded-xl p-5">
+            <div class="text-2xl mb-3">{f.icon}</div>
+            <h3 class="font-bold text-navy-900 text-sm mb-1">{f.title}</h3>
+            <p class="text-slate-500 text-xs leading-relaxed">{f.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</BaseLayout>
