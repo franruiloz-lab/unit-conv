@@ -1,4 +1,4 @@
-const siteUrl = 'https://unitcalc.io';
+const siteUrl = 'https://franruiloz-lab.github.io';
 
 function url(path: string, priority: string, changefreq: string) {
   return `  <url>
@@ -10,18 +10,18 @@ function url(path: string, priority: string, changefreq: string) {
 
 // Static pages
 const staticPages = [
-  url('/', '1.0', 'weekly'),
-  url('/length-converter/', '0.9', 'monthly'),
-  url('/weight-converter/', '0.9', 'monthly'),
-  url('/temperature-converter/', '0.9', 'monthly'),
-  url('/area-converter/', '0.8', 'monthly'),
-  url('/volume-converter/', '0.8', 'monthly'),
-  url('/speed-converter/', '0.8', 'monthly'),
-  url('/data-storage-converter/', '0.7', 'monthly'),
-  url('/time-converter/', '0.7', 'monthly'),
-  url('/privacy/', '0.3', 'yearly'),
-  url('/terms/', '0.3', 'yearly'),
-  url('/cookie-policy/', '0.3', 'yearly'),
+  url('/unit-conv/', '1.0', 'weekly'),
+  url('/unit-conv/length-converter/', '0.9', 'monthly'),
+  url('/unit-conv/weight-converter/', '0.9', 'monthly'),
+  url('/unit-conv/temperature-converter/', '0.9', 'monthly'),
+  url('/unit-conv/area-converter/', '0.8', 'monthly'),
+  url('/unit-conv/volume-converter/', '0.8', 'monthly'),
+  url('/unit-conv/speed-converter/', '0.8', 'monthly'),
+  url('/unit-conv/data-storage-converter/', '0.7', 'monthly'),
+  url('/unit-conv/time-converter/', '0.7', 'monthly'),
+  url('/unit-conv/privacy/', '0.3', 'yearly'),
+  url('/unit-conv/terms/', '0.3', 'yearly'),
+  url('/unit-conv/cookie-policy/', '0.3', 'yearly'),
 ];
 
 // Length programmatic pages
@@ -32,7 +32,7 @@ const lengthConversions = [
 ];
 const lengthVals = [...Array.from({length: 100}, (_, i) => i + 1), 110, 120, 125, 130, 140, 150, 160, 170, 175, 180, 185, 190, 200, 250, 300, 400, 500];
 const lengthPages = lengthConversions.flatMap(([from, to]) =>
-  lengthVals.map(v => url(`/length/${v}-${from}-to-${to}/`, '0.6', 'yearly'))
+  lengthVals.map(v => url(`/unit-conv/length/${v}-${from}-to-${to}/`, '0.6', 'yearly'))
 );
 
 // Weight programmatic pages
@@ -42,14 +42,14 @@ const weightConversions = [
 ];
 const weightVals = [...Array.from({length: 200}, (_, i) => i + 1), 250, 300, 400, 500];
 const weightPages = weightConversions.flatMap(([from, to]) =>
-  weightVals.map(v => url(`/weight/${v}-${from}-to-${to}/`, '0.6', 'yearly'))
+  weightVals.map(v => url(`/unit-conv/weight/${v}-${from}-to-${to}/`, '0.6', 'yearly'))
 );
 
 // Temperature programmatic pages
 const tempPages: string[] = [];
-for (let c = 0; c <= 250; c++) tempPages.push(url(`/temperature/${c}-celsius-to-fahrenheit/`, '0.6', 'yearly'));
-for (let f = 0; f <= 450; f++) tempPages.push(url(`/temperature/${f}-fahrenheit-to-celsius/`, '0.6', 'yearly'));
-for (let c = 0; c <= 300; c++) tempPages.push(url(`/temperature/${c}-celsius-to-kelvin/`, '0.5', 'yearly'));
+for (let c = 0; c <= 250; c++) tempPages.push(url(`/unit-conv/temperature/${c}-celsius-to-fahrenheit/`, '0.6', 'yearly'));
+for (let f = 0; f <= 450; f++) tempPages.push(url(`/unit-conv/temperature/${f}-fahrenheit-to-celsius/`, '0.6', 'yearly'));
+for (let c = 0; c <= 300; c++) tempPages.push(url(`/unit-conv/temperature/${c}-celsius-to-kelvin/`, '0.5', 'yearly'));
 
 const allUrls = [...staticPages, ...lengthPages, ...weightPages, ...tempPages];
 
@@ -63,3 +63,4 @@ export async function GET() {
     headers: { 'Content-Type': 'application/xml' }
   });
 }
+

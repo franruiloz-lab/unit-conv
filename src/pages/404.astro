@@ -10,17 +10,17 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     <h1 class="text-2xl font-extrabold text-navy-900 mb-3">Page not found</h1>
     <p class="text-slate-500 max-w-md mb-8">This unit seems to have converted to another dimension. Try one of our converters below.</p>
     <div class="flex flex-wrap justify-center gap-3 mb-10">
-      <a href="/" class="btn-primary">← Back to Home</a>
-      <a href="/length-converter/" class="inline-flex items-center gap-2 bg-white border border-slate-200 hover:border-brand-300 text-navy-900 text-sm font-semibold px-5 py-2.5 rounded-lg transition-colors">📏 Length Converter</a>
-      <a href="/weight-converter/" class="inline-flex items-center gap-2 bg-white border border-slate-200 hover:border-brand-300 text-navy-900 text-sm font-semibold px-5 py-2.5 rounded-lg transition-colors">⚖️ Weight Converter</a>
-      <a href="/temperature-converter/" class="inline-flex items-center gap-2 bg-white border border-slate-200 hover:border-brand-300 text-navy-900 text-sm font-semibold px-5 py-2.5 rounded-lg transition-colors">🌡️ Temperature</a>
+      <a href="/unit-conv/" class="btn-primary">← Back to Home</a>
+      <a href="/unit-conv/length-converter/" class="inline-flex items-center gap-2 bg-white border border-slate-200 hover:border-brand-300 text-navy-900 text-sm font-semibold px-5 py-2.5 rounded-lg transition-colors">📏 Length Converter</a>
+      <a href="/unit-conv/weight-converter/" class="inline-flex items-center gap-2 bg-white border border-slate-200 hover:border-brand-300 text-navy-900 text-sm font-semibold px-5 py-2.5 rounded-lg transition-colors">⚖️ Weight Converter</a>
+      <a href="/unit-conv/temperature-converter/" class="inline-flex items-center gap-2 bg-white border border-slate-200 hover:border-brand-300 text-navy-900 text-sm font-semibold px-5 py-2.5 rounded-lg transition-colors">🌡️ Temperature</a>
     </div>
     <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 max-w-2xl">
       {[
-        { label: 'Area Converter', href: '/area-converter/', icon: '📐' },
-        { label: 'Volume Converter', href: '/volume-converter/', icon: '🧪' },
-        { label: 'Speed Converter', href: '/speed-converter/', icon: '🚀' },
-        { label: 'Time Converter', href: '/time-converter/', icon: '⏱️' },
+        { label: 'Area Converter', href: '/unit-conv/area-converter/', icon: '📐' },
+        { label: 'Volume Converter', href: '/unit-conv/volume-converter/', icon: '🧪' },
+        { label: 'Speed Converter', href: '/unit-conv/speed-converter/', icon: '🚀' },
+        { label: 'Time Converter', href: '/unit-conv/time-converter/', icon: '⏱️' },
       ].map(({ label, href, icon }) => (
         <a href={href} class="flex flex-col items-center gap-2 bg-white border border-slate-200 hover:border-brand-300 hover:shadow-sm rounded-xl p-4 transition-all group">
           <span class="text-2xl">{icon}</span>

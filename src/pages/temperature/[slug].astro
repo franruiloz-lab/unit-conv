@@ -64,10 +64,10 @@ const faqs = [
 ];
 
 const related = [
-  { title: 'Temperature Converter', href: '/temperature-converter/', icon: '🌡️', description: 'Convert all temperature units' },
-  { title: `${value + 1}${fromSymbol} to ${toLabel}`, href: `/temperature/${value + 1}-${slugBase}/`, icon: '🌡️', description: `${value + 1}${fromSymbol} in ${toLabel}` },
-  { title: 'Weight Converter', href: '/weight-converter/', icon: '⚖️', description: 'kg, lbs, grams, ounces' },
-  { title: 'Length Converter', href: '/length-converter/', icon: '📏', description: 'meters, feet, inches, miles' },
+  { title: 'Temperature Converter', href: '/unit-conv/temperature-converter/', icon: '🌡️', description: 'Convert all temperature units' },
+  { title: `${value + 1}${fromSymbol} to ${toLabel}`, href: `/unit-conv/temperature/${value + 1}-${slugBase}/`, icon: '🌡️', description: `${value + 1}${fromSymbol} in ${toLabel}` },
+  { title: 'Weight Converter', href: '/unit-conv/weight-converter/', icon: '⚖️', description: 'kg, lbs, grams, ounces' },
+  { title: 'Length Converter', href: '/unit-conv/length-converter/', icon: '📏', description: 'meters, feet, inches, miles' },
 ];
 
 const cap = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
@@ -128,7 +128,7 @@ const cap = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
       <tbody>
         {nearby.map(row => (
           <tr class={row.v === value ? 'bg-brand-50 font-bold' : ''}>
-            <td><a href={`/temperature/${row.v}-${slugBase}/`} class="text-brand-600 hover:underline">{row.v}{fromSymbol}</a></td>
+            <td><a href={`/unit-conv/temperature/${row.v}-${slugBase}/`} class="text-brand-600 hover:underline">{row.v}{fromSymbol}</a></td>
             <td class="font-mono">{row.r}{toSymbol}</td>
           </tr>
         ))}

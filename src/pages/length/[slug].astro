@@ -78,10 +78,10 @@ const faqs = [
 ];
 
 const related = [
-  { title: 'Length Converter', href: '/length-converter/', icon: '📏', description: 'Convert all length units' },
-  { title: `${value} cm to inches`, href: `/length/${value}-cm-to-inches/`, icon: '📐', description: `${value} cm in inches` },
-  { title: `${value} kg to lbs`, href: `/weight/${value}-kg-to-lbs/`, icon: '⚖️', description: `${value} kg in pounds` },
-  { title: 'Weight Converter', href: '/weight-converter/', icon: '⚖️', description: 'kg, lbs, grams, ounces' },
+  { title: 'Length Converter', href: '/unit-conv/length-converter/', icon: '📏', description: 'Convert all length units' },
+  { title: `${value} cm to inches`, href: `/unit-conv/length/${value}-cm-to-inches/`, icon: '📐', description: `${value} cm in inches` },
+  { title: `${value} kg to lbs`, href: `/unit-conv/weight/${value}-kg-to-lbs/`, icon: '⚖️', description: `${value} kg in pounds` },
+  { title: 'Weight Converter', href: '/unit-conv/weight-converter/', icon: '⚖️', description: 'kg, lbs, grams, ounces' },
 ];
 ---
 
@@ -131,7 +131,7 @@ const related = [
       <tbody>
         {nearby.map(row => (
           <tr class={row!.v === value ? 'bg-brand-50 font-bold' : ''}>
-            <td><a href={`/length/${row!.v}-${from}-to-${to}/`} class="text-brand-600 hover:underline">{row!.v} {fromLabel}</a></td>
+            <td><a href={`/unit-conv/length/${row!.v}-${from}-to-${to}/`} class="text-brand-600 hover:underline">{row!.v} {fromLabel}</a></td>
             <td class="font-mono">{row!.r} {toLabel}</td>
           </tr>
         ))}

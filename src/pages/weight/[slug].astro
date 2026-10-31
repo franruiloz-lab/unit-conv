@@ -50,10 +50,10 @@ const faqs = [
 ];
 
 const related = [
-  { title: 'Weight Converter', href: '/weight-converter/', icon: '⚖️', description: 'Convert all weight units' },
-  { title: `${value} lbs to kg`, href: `/weight/${value}-lbs-to-kg/`, icon: '⚖️', description: `${value} lbs in kilograms` },
-  { title: `${value} meters to feet`, href: `/length/${value}-meters-to-feet/`, icon: '📏', description: `${value} m in feet` },
-  { title: 'Length Converter', href: '/length-converter/', icon: '📏', description: 'meters, feet, inches, miles' },
+  { title: 'Weight Converter', href: '/unit-conv/weight-converter/', icon: '⚖️', description: 'Convert all weight units' },
+  { title: `${value} lbs to kg`, href: `/unit-conv/weight/${value}-lbs-to-kg/`, icon: '⚖️', description: `${value} lbs in kilograms` },
+  { title: `${value} meters to feet`, href: `/unit-conv/length/${value}-meters-to-feet/`, icon: '📏', description: `${value} m in feet` },
+  { title: 'Length Converter', href: '/unit-conv/length-converter/', icon: '📏', description: 'meters, feet, inches, miles' },
 ];
 
 const cap = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
@@ -104,7 +104,7 @@ const cap = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
       <tbody>
         {nearby.map(row => (
           <tr class={row!.v === value ? 'bg-brand-50 font-bold' : ''}>
-            <td><a href={`/weight/${row!.v}-${from}-to-${to}/`} class="text-brand-600 hover:underline">{row!.v} {fromLabel}</a></td>
+            <td><a href={`/unit-conv/weight/${row!.v}-${from}-to-${to}/`} class="text-brand-600 hover:underline">{row!.v} {fromLabel}</a></td>
             <td class="font-mono">{row!.r} {toLabel}</td>
           </tr>
         ))}

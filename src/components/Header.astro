@@ -1,10 +1,10 @@
 ---
 const nav = [
-  { label: 'Length', href: '/length-converter/' },
-  { label: 'Weight', href: '/weight-converter/' },
-  { label: 'Temperature', href: '/temperature-converter/' },
-  { label: 'Area', href: '/area-converter/' },
-  { label: 'All Converters', href: '/#converters' },
+  { label: 'Length', href: '/unit-conv/length-converter/' },
+  { label: 'Weight', href: '/unit-conv/weight-converter/' },
+  { label: 'Temperature', href: '/unit-conv/temperature-converter/' },
+  { label: 'Area', href: '/unit-conv/area-converter/' },
+  { label: 'All Converters', href: '/unit-conv/#converters' },
 ];
 ---
 
@@ -12,7 +12,7 @@ const nav = [
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="flex items-center justify-between h-14">
       <!-- Logo -->
-      <a href="/" class="flex items-center gap-2.5 flex-shrink-0">
+      <a href="/unit-conv/" class="flex items-center gap-2.5 flex-shrink-0">
         <div class="w-7 h-7 bg-brand-600 rounded-lg flex items-center justify-center">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
             <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/>
@@ -33,7 +33,7 @@ const nav = [
 
       <!-- CTA + mobile toggle -->
       <div class="flex items-center gap-2">
-        <a href="/#converters" class="hidden sm:inline-flex btn-primary text-xs px-3 py-1.5">
+        <a href="/unit-conv/#converters" class="hidden sm:inline-flex btn-primary text-xs px-3 py-1.5">
           All Converters
         </a>
         <button id="menu-toggle" class="md:hidden p-2 text-slate-400 hover:text-white transition-colors" aria-label="Toggle menu">

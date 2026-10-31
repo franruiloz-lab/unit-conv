@@ -13,9 +13,9 @@ interface Props {
 }
 
 const { title, description, canonical, ogImage, schema } = Astro.props;
-const siteUrl = 'https://unitcalc.io';
+const siteUrl = 'https://franruiloz-lab.github.io';
 const fullTitle = title.includes('UnitCalc') ? title : `${title} | UnitCalc`;
-const ogImg = ogImage || `${siteUrl}/og-default.svg`;
+const ogImg = ogImage || `${siteUrl}/unit-conv/og-default.svg`;
 const schemaItems = schema ? (Array.isArray(schema) ? schema : [schema]) : [];
 ---
 
@@ -40,7 +40,7 @@ const schemaItems = schema ? (Array.isArray(schema) ? schema : [schema]) : [];
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImg} />
 
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/svg+xml" href="/unit-conv/favicon.svg" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
